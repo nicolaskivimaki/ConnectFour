@@ -10,13 +10,13 @@ The goal of this project is to create a Connect Four game using the Python progr
 
 The game will utilize the Pygame library for handling graphics and input events.
 
-The game state will be represented using a 2D grid structure. Each element in the grid will represent a cell on the Connect Four board, and the value (0, 1 or 2) stored in that element will indicate the player occupying that cell, if any.
+The game state will be represented using a 2D array. Each element in the grid will represent a cell on the Connect Four board, and the value (0, 1 or 2) stored in that element will indicate the player occupying that cell, if any.
 
 The program will handle user input through the graphical user interface, allowing players to select columns for dropping their tokens. The program will validate the players' moves and enforce the rules of Connect Four, including checking for wins and detecting a draw.
 
 The AI opponent will use the minimax algorithm with alpha-beta pruning to make calculated decisions. It will evaluate possible moves and select the optimal one based on the current game state and depth used by the algorithm.
 
-The time complexity for the game should be O(n), where n is the total number of possible moves in a given position. The space complexity should be O(1), as the game state will be represented using a 2D array.
+The time complexity for the game should be O(b^k), where b is the branching factor (b=7 in connect four) and k is the depth of the search. The space complexity should be O(1), as the game state will be represented using a 2D array.
 
 ## References:
 
