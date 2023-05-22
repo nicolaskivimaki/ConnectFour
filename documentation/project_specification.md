@@ -16,7 +16,7 @@ The program will handle user input through the graphical user interface, allowin
 
 The AI opponent will use the minimax algorithm with alpha-beta pruning to make calculated decisions. It will evaluate possible moves and select the optimal one based on the current game state and depth used by the algorithm.
 
-The time complexity for the game should be O(b^k), where b is the branching factor (b=7 in connect four) and k is the depth of the search. The space complexity should be O(1), as the game state will be represented using a 2D array.
+The time complexity for the game should be O(b^k), where b is the branching factor (b=7 in connect four because at most there are 7 possible columns to place the token) and k is the depth of the search. The space complexity should be O(1), as the game state will be represented using a 2D array.
 
 ## References:
 
