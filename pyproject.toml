@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "tiralabra-k23"
+version = "0.1.0"
+description = ""
+authors = ["Nicolas <kivimakinicolas@gmail.com>"]
+readme = "README.md"
+packages = [{include = "tiralabra_k23"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
