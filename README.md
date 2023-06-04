@@ -4,6 +4,7 @@ Project for University of Helsinki's Datastructures and Algorithms Lab course
 
 ## Documentation
 - [Project Specification](https://github.com/nicolaskivimaki/tiralabra-k23/blob/main/documentation/project_specification.md)
+- [Testing Document](https://github.com/nicolaskivimaki/tiralabra-K23/blob/main/documentation/testing_document.md)
 
 ## Weekly reports
 - [week 1](https://github.com/nicolaskivimaki/tiralabra-k23/blob/main/documentation/weekly_reports/week1.md)
