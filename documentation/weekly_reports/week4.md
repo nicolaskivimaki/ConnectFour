@@ -2,7 +2,7 @@
 
 ### 9.6
 
-I wrote more unit tests for the game. These tests now include checks for the validity of moves, the correct detection of a draw, and more complex scenarios for the winning logic of the game.
+I wrote more unit tests for the game to check for the validity of moves.
 
 Hours spent: 6
 
