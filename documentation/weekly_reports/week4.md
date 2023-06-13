@@ -2,7 +2,7 @@
 
 ### 9.6
 
-I wrote more unit tests for the game to check for the validity of moves.
+Wrote unit tests for the AI opponent and the evaluation system.
 
 Hours spent: 6
 
