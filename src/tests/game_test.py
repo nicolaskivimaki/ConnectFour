@@ -60,8 +60,6 @@ class TestGame(unittest.TestCase):
         self.game.board.drop_piece(1, 1, 1)
         self.assertEqual(self.game.get_next_open_row(1), 2)
 
-    
-
 
 if __name__ == "__main__":
     unittest.main()

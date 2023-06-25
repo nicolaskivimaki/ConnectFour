@@ -2,6 +2,7 @@ import unittest
 from AI_engine import AI_engine
 from board import Board
 from constants import *
+import numpy as np
 
 class TestAIEngine(unittest.TestCase):
 
@@ -45,6 +46,30 @@ class TestAIEngine(unittest.TestCase):
         # test full column
         self.board.board[:, 0] = 1
         self.assertEqual(self.ai.get_valid_locations(self.board.board), list(range(1, COLUMN_COUNT)))
+
+    def test_winning_sequence(self):
+
+        board = np.array([
+            [1, 0, 0, 1, 1, 0, 0],
+            [2, 0, 0, 2, 2, 0, 0],
+            [1, 0, 0, 2, 1, 1, 0],
+            [2, 0, 0, 2, 1, 2, 0],
+            [1, 0, 0, 1, 2, 1, 0],
+            [2, 0, 0, 2, 1, 2, 1]
+        ])
+
+        # Winning move is found with depth 6
+
+        depth = 6
+        best_move, score = self.ai.minimax(board, depth, True, -INFINITY, INFINITY)
+        self.assertEqual(best_move, 2)
+        self.assertGreaterEqual(score, 100000000000)
+
+        # Winning move is not found with depth 4
+
+        depth = 4
+        best_move, score = self.ai.minimax(board, depth, True, -INFINITY, INFINITY)
+        self.assertLessEqual(score, 100000000000)
 
     def test_minimax(self):
         # test initial board
