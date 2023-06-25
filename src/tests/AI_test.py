@@ -47,7 +47,7 @@ class TestAIEngine(unittest.TestCase):
         self.board.board[:, 0] = 1
         self.assertEqual(self.ai.get_valid_locations(self.board.board), list(range(1, COLUMN_COUNT)))
 
-    def test_winning_sequence(self):
+    def test_winning_sequence_6(self):
 
         board = np.array([
             [1, 0, 0, 1, 1, 0, 0],
