@@ -6,7 +6,8 @@ This repository contains the code for an implementation of the classic Connect F
 ### Project Structure
 
 The application currently consists of two classes: 
-* Board - handles the game loop and graphical user interface 
+* Game - handles the game loop and graphical user interface
+* Board - keeps track of the game state and handles changes to it
 * AI_engine - handles the minimax algorithm and heuristic function for evaluating possible moves
 
 ### Time and Space Complexity
