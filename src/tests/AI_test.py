@@ -71,6 +71,37 @@ class TestAIEngine(unittest.TestCase):
         best_move, score = self.ai.minimax(board, depth, True, -INFINITY, INFINITY)
         self.assertLessEqual(score, 100000000000)
 
+    def test_defense(self):
+
+        # Test defense against imminent horizontal loss
+
+        board = np.zeros((6, 7))
+        board[0][2:5] = 1
+        board[0][5:] = 2
+        print(board)
+        depth = 1
+        best_move, score = self.ai.minimax(board, depth, True, -INFINITY, INFINITY)
+        self.assertEqual(best_move, 1)
+
+        # Test defense against imminent vertical loss
+
+        self.board.board = np.array([
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+
+        depth = 6
+        col, score = self.ai.minimax(self.board.board, depth, True, -INFINITY, INFINITY)
+        row = self.board.get_next_open_row(col)
+        self.board.drop_piece(row, col, 2)
+        print(self.board.board)
+        self.assertEqual(col, 0)
+
+
     def test_minimax(self):
         # test initial board
         column, score = self.ai.minimax(self.board.board, 3, True, -INFINITY, INFINITY)
