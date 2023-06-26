@@ -47,7 +47,31 @@ class TestAIEngine(unittest.TestCase):
         self.board.board[:, 0] = 1
         self.assertEqual(self.ai.get_valid_locations(self.board.board), list(range(1, COLUMN_COUNT)))
 
-    def test_winning_sequence_6(self):
+    def test_find_win_in_2(self):
+
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 0, 0, 0],
+            [0, 0, 2, 2, 0, 0, 0]
+        ])
+
+        # Winning move is found with depth 4 and score = infinity
+
+        depth = 4
+        best_move, score = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)
+        self.assertEqual(best_move, 1)
+        self.assertEqual(score, INFINITY)
+
+        # Winning move is not found with depth 1, score != infinity
+
+        depth = 1
+        best_move, score = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)
+        self.assertLess(score, INFINITY)
+
+    def test_find_win_in_6(self):
 
         board = np.array([
             [1, 0, 0, 1, 1, 0, 0],
@@ -58,18 +82,18 @@ class TestAIEngine(unittest.TestCase):
             [2, 0, 0, 2, 1, 2, 1]
         ])
 
-        # Winning move is found with depth 6
+        # Winning move is found with depth 7 and score = infinity
 
-        depth = 6
-        best_move, score = self.ai.minimax(board, depth, True, -INFINITY, INFINITY)
+        depth = 7
+        best_move, score = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)
         self.assertEqual(best_move, 2)
-        self.assertGreaterEqual(score, 100000000000)
+        self.assertEqual(score, INFINITY)
 
-        # Winning move is not found with depth 4
+        # Winning move is not found with depth 4, score != infinity
 
         depth = 4
-        best_move, score = self.ai.minimax(board, depth, True, -INFINITY, INFINITY)
-        self.assertLessEqual(score, 100000000000)
+        best_move, score = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)
+        self.assertLess(score, INFINITY)
 
     def test_defense_loss_in_1_move(self):
 
