@@ -13,3 +13,13 @@ The unit tests are executed using pytest and currently concentrate on verifying 
 For a coverage report, run the following command:
 
 ```poetry run invoke coverage-report```
+
+### Game tests
+
+The aim of the game tests is to verify that parts of the code responsible for maintaining basic operations required to run the game are working. For example we test that it is possible to drop pieces onto the board, get empty columns and return whether a game is over or not. All of these are essential for the game to work.
+
+### AI tests
+
+With the AI unit tests, we aim to test and verify the correctness of the AI_engine class and the minimax algorithm. We have multiple different created game states to test whether the AI is able to find the best move and also show how the AI is not able to find the same move at a lower depth of search. We test a variety of different situations, from simple game states where a win/loss can be achioeved with one correct move to more difficult states, where a win is certain in e.g. 6 or 8 moves.
+
+We also test the heuristic evaluation function to verify that the function calculates the correct scores for moves in different scenarios.
