@@ -3,6 +3,7 @@ import pygame
 from constants import *
 from game import Game
 from board import Board
+import numpy as np
 
 class TestGame(unittest.TestCase):
 
@@ -33,6 +34,10 @@ class TestGame(unittest.TestCase):
     def test_draw_board(self):
         self.game.draw_board()
         # Test if the board is drawn correctly
+
+    def test_board_exists(self):
+        empty_board = np.zeros((6, 7))
+        self.assertEqual(empty_board.all(), self.game.board.board.all())
 
     def test_is_valid_location(self):
         self.game.board.drop_piece(1, 1, 1)
