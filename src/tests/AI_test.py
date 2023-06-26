@@ -71,7 +71,13 @@ class TestAIEngine(unittest.TestCase):
         best_move, score = self.ai.minimax(board, depth, True, -INFINITY, INFINITY)
         self.assertLessEqual(score, 100000000000)
 
-    def test_defense(self):
+    def test_defense_loss_in_1_move(self):
+
+        """
+        Test AI defense in situations where the opponent can win in one move 
+        if we don't defend correctly. Because we have a certain loss 1 move ahead, 
+        the AI should be able to defend at depth = 1.
+        """
 
         # Test defense against imminent horizontal loss
 
@@ -94,12 +100,39 @@ class TestAIEngine(unittest.TestCase):
             [0, 0, 0, 0, 0, 0, 0]
         ])
 
-        depth = 6
         col, score = self.ai.minimax(self.board.board, depth, True, -INFINITY, INFINITY)
         row = self.board.get_next_open_row(col)
-        self.board.drop_piece(row, col, 2)
-        print(self.board.board)
         self.assertEqual(col, 0)
+
+        # Test defense against imminent right diagonal loss
+
+        self.board.board = np.array([
+            [0, 0, 1, 1, 2, 1, 0],
+            [0, 0, 2, 2, 1, 0, 0],
+            [0, 0, 2, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+
+        col, score = self.ai.minimax(self.board.board, depth, True, -INFINITY, INFINITY)
+        row = self.board.get_next_open_row(col)
+        self.assertEqual(col, 2)
+
+        # Test defense against imminent left diagonal loss
+
+        self.board.board = np.array([
+            [1, 2, 1, 1, 2, 1, 0],
+            [0, 1, 2, 2, 1, 0, 0],
+            [0, 0, 1, 2, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+
+        col, score = self.ai.minimax(self.board.board, depth, True, -INFINITY, INFINITY)
+        row = self.board.get_next_open_row(col)
+        self.assertEqual(col, 3)
 
 
     def test_minimax(self):
