@@ -16,7 +16,7 @@ For a coverage report, run the following command:
 
 Coverage for the program currently:
 
-<img width="684" alt="Screenshot 2023-06-26 at 20 53 22" src="https://github.com/nicolaskivimaki/tiralabra-K23/assets/86207135/8f1c02f6-c221-45f7-be7c-946db46b1d2f">
+<img width="693" alt="Screenshot 2023-06-26 at 20 57 18" src="https://github.com/nicolaskivimaki/tiralabra-K23/assets/86207135/300553ea-dd5c-4afd-8c69-16b57932b2cf">
 
 
 ### Game tests
