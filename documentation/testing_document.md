@@ -14,6 +14,11 @@ For a coverage report, run the following command:
 
 ```poetry run invoke coverage-report```
 
+Coverage for the program currently:
+
+<img width="684" alt="Screenshot 2023-06-26 at 20 53 22" src="https://github.com/nicolaskivimaki/tiralabra-K23/assets/86207135/8f1c02f6-c221-45f7-be7c-946db46b1d2f">
+
+
 ### Game tests
 
 The aim of the game tests is to verify that parts of the code responsible for maintaining basic operations required to run the game are working. For example, we test that it is possible to drop pieces onto the board, get empty columns and return whether a game is over or not. All of these are essential for the game to work.
