@@ -65,7 +65,7 @@ class TestAIEngine(unittest.TestCase):
         self.assertEqual(best_move, 1)
         self.assertEqual(score, INFINITY)
 
-        # Winning move is not found with depth 1, score != infinity
+        # Winning move is not found with depth 1, score < infinity
 
         depth = 1
         best_move, score = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)
@@ -89,7 +89,7 @@ class TestAIEngine(unittest.TestCase):
         self.assertEqual(best_move, 2)
         self.assertEqual(score, INFINITY)
 
-        # Winning move is not found with depth 4, score != infinity
+        # Winning move is not found with depth 4, score < infinity
 
         depth = 4
         best_move, score = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)
