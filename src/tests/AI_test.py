@@ -19,6 +19,11 @@ class TestAIEngine(unittest.TestCase):
         # test board with winning state for player 2
         self.board.board[0][:4] = 2
         self.assertEqual(self.ai.is_game_over(self.board.board), True)
+        # test full board
+        self.board.board = np.ones((6, 7))
+        self.assertEqual(self.ai.is_game_over(self.board.board), True)
+
+
 
     def test_evaluate_window(self):
         # test window with 4 pieces of player 1
