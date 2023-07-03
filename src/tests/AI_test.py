@@ -20,9 +20,15 @@ class TestAIEngine(unittest.TestCase):
         self.board.board[0][:4] = 2
         self.assertEqual(self.ai.is_game_over(self.board.board), True)
         # test full board
-        self.board.board = np.ones((6, 7))
-        self.assertEqual(self.ai.is_game_over(self.board.board), True)
-
+        board = np.array([
+            [3, 3, 3, 3, 3, 3, 3],
+            [3, 3, 3, 3, 3, 3, 3],
+            [3, 3, 3, 3, 3, 3, 3],
+            [3, 3, 3, 3, 3, 3, 3],
+            [3, 3, 3, 3, 3, 3, 3],
+            [3, 3, 3, 3, 3, 3, 3]
+        ])
+        self.assertEqual(self.ai.is_game_over(board), True)
 
 
     def test_evaluate_window(self):
