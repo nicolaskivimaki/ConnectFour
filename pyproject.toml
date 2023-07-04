@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "tiralabra-k23"
+name = "tiralabra_k23"
 version = "0.1.0"
 description = ""
 authors = ["Nicolas <kivimakinicolas@gmail.com>"]
