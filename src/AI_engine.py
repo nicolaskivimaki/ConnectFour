@@ -1,5 +1,5 @@
-from constants import *
 import random
+from constants import *
 
 class AI_engine:
 
