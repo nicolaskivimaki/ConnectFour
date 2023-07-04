@@ -35,12 +35,6 @@ class Board:
             if board[r][col] == 0:
                 return r
 
-    def print_board(self):
-        """
-        Print the board to the console (mainly for testing purposes).
-        """
-        print(np.flip(self.board, 0))
-
     def check_win(self, piece, board=None):
 
         if board is None:
@@ -71,7 +65,6 @@ class Board:
                     return True
 
         return False
-    
+
     def reset_board(self):
         self.board = np.zeros((self.rows, self.columns))
-

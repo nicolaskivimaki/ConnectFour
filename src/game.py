@@ -1,9 +1,9 @@
-import pygame 
-from constants import *
 import sys
 import math
-from AI_engine import AI_engine
 import time
+import pygame
+from constants import *
+from AI_engine import AI_engine
 
 class Game:
     def __init__(self, board):
@@ -28,12 +28,12 @@ class Game:
             for r in range(ROW_COUNT):
                 pygame.draw.rect(self.screen, BLUE, (c*SQUARESIZE, r*SQUARESIZE+SQUARESIZE, SQUARESIZE, SQUARESIZE))
                 pygame.draw.circle(self.screen, BLACK, (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)), RADIUS)
-            
+
         for c in range(COLUMN_COUNT):
-            for r in range(ROW_COUNT):        
+            for r in range(ROW_COUNT):
                 if self.board.board[r][c] == 1:
                     pygame.draw.circle(self.screen, self.player_token, (int(c*SQUARESIZE+SQUARESIZE/2), self.height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
-                elif self.board.board[r][c] == 2: 
+                elif self.board.board[r][c] == 2:
                     pygame.draw.circle(self.screen, self.ai_token, (int(c*SQUARESIZE+SQUARESIZE/2), self.height-int(r*SQUARESIZE+SQUARESIZE/2)), RADIUS)
         pygame.display.update()
 
@@ -41,10 +41,13 @@ class Game:
         return self.board.board[ROW_COUNT-1][col] == 0
 
     def get_next_open_row(self, col):
+        """
+        Finds the first empty row in a specified column
+        """
         for r in range(ROW_COUNT):
             if self.board.board[r][col] == 0:
                 return r
-    
+
     def text_objects(self, text, font, color):
         textSurface = font.render(text, True, color)
         return textSurface, textSurface.get_rect()
@@ -212,13 +215,13 @@ class Game:
                         if self.board.check_win(1):
                             self.winner = "You win!"
                             self.game_over = True
-                        
+
                         self.turn = 2
 
                 self.draw_board()
 
                 if self.turn == 2 and not self.game_over:
-                    
+
                     col = self.ai.minimax(self.board.board, self.ai_level, True, -INFINITY, INFINITY)[0]
 
                     if self.board.is_valid_location(col):
@@ -232,7 +235,7 @@ class Game:
                     self.turn = 1
 
                 self.draw_board()
- 
+
         if self.game_over:
             GameOverTitle = pygame.font.Font('freesansbold.ttf', 44)
             GameOverTitleSurf, GameOverTitleRect = self.text_objects(self.winner, GameOverTitle, WHITE)
@@ -241,6 +244,3 @@ class Game:
             pygame.display.update()
 
             time.sleep(4)
-
-            
-

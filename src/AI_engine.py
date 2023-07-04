@@ -4,6 +4,7 @@ import random
 class AI_engine:
 
     def __init__(self, board):
+
         self.board = board
         self.piece = 2
 
@@ -12,18 +13,20 @@ class AI_engine:
         return self.board.check_win(1, board) or self.board.check_win(2, board) or len(self.get_valid_locations(board)) == 0
 
     def evaluate_window(self, window, piece):
+        """
+        Rates a possible move based on its value to the current player.
+        """
+
         score = 0
         opponent_piece = 1
 
         if piece == 1:
             opponent_piece = 2
-        if window.count(piece) == 4:
-            score += 100
-        elif window.count(piece) == 3 and window.count(0) == 1:
+        if window.count(piece) == 3 and window.count(0) == 1:
             score += 5
         elif window.count(piece) == 2 and window.count(0) == 2:
             score += 2
-        if window.count(opponent_piece) == 3 and window.count(0) == 1:
+        elif window.count(opponent_piece) == 3 and window.count(0) == 1:
             score -= 4
 
         return score
@@ -31,8 +34,13 @@ class AI_engine:
     def evaluate_position(self, board, piece):
         score = 0
 
+        """
+        Evaluates the board state based on the amount of pieces
+        in every possible window of 4 slots on the board.
+        """
+
         # Center
-        center_array = [int(i) for i in list(board[:, COLUMN_COUNT//2])]
+        center_array = [int(i) for i in list(board[:, 3])]
         center_count = center_array.count(piece)
         score += center_count * 3
 
@@ -66,6 +74,10 @@ class AI_engine:
 
     def get_valid_locations(self, board):
 
+        """
+        Uses the Board class to get valid locations.
+        """
+
         valid_locations = []
         for col in range(COLUMN_COUNT):
             if self.board.is_valid_location(col, board):
@@ -73,6 +85,9 @@ class AI_engine:
         return valid_locations
 
     def minimax(self, board, depth, max_player, alpha, beta):
+        """
+        Returns the best move for the AI player using the minimax algorithm with alpha-beta pruning.
+        """
 
         valid_locations = self.get_valid_locations(board)
         game_over = self.is_game_over(board)
@@ -119,4 +134,3 @@ class AI_engine:
                 if alpha >= beta:
                     break
             return column, max_score
-

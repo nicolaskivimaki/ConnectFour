@@ -29,29 +29,101 @@ class TestAIEngine(unittest.TestCase):
             [3, 3, 3, 3, 3, 3, 3]
         ])
         self.assertEqual(self.ai.is_game_over(board), True)
+        best_move, score = self.ai.minimax(board, 2, True, -INFINITY, INFINITY)
+        self.assertEqual(best_move, None)
+        self.assertEqual(score, 0)
+    
+    def test_empty_board(self):
+        # test initial 
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+        self.assertEqual(self.ai.evaluate_position(board, 1), 0)
 
+    def test_evaluate_vertical_position_1(self):
+        # test board with line of 3 for player 1
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0]
+        ])
+        self.assertEqual(self.ai.evaluate_position(board, 1), 7)
 
-    def test_evaluate_window(self):
-        # test window with 4 pieces of player 1
-        self.assertEqual(self.ai.evaluate_window([1, 1, 1, 1], 1), 100)
-        # test window with 4 pieces of player 2
-        self.assertEqual(self.ai.evaluate_window([2, 2, 2, 2], 2), 100)
+    def test_evaluate_vertical_position_2(self):
+        # test board with vertical line of 3 for player 2
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0]
+        ])
+        self.assertEqual(self.ai.evaluate_position(board, 2), 7)
 
-    def test_evaluate_position(self):
-        # test initial board
-        self.assertEqual(self.ai.evaluate_position(self.board.board, 1), 0)
-        # test board with winning state for player 1
-        for i in range(2, 6):
-            self.board.board[i][0] = 1 
-            print(self.board.board)
-        self.assertEqual(self.ai.evaluate_position(self.board.board, 1), 107)
-        # test board with winning state for player 2
-        for i in range(2, 6):
-            self.board.board[i][0] = 2 
-            print(self.board.board)
-        self.assertEqual(self.ai.evaluate_position(self.board.board, 2), 107)
+    def test_evaluate_horizontal_position_1(self):
+
+        # test board with horizontal line of 3 for player 1
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 1, 0, 0]
+        ])
+        self.assertEqual(self.ai.evaluate_position(board, 1), 17)
+
+    def test_evaluate_horizontal_position_2(self):
+
+        # test board with horizontal line of 3 for player 2
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 2, 2, 0, 0]
+        ])
+        self.assertEqual(self.ai.evaluate_position(board, 2), 17)
+
+    def test_evaluate_diagonal_position_1(self):
+
+        # test board with diagonal line of 3 for player 1
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0]
+        ])
+        self.assertEqual(self.ai.evaluate_position(board, 1), 10)
+
+    def test_evaluate_diagonal_position_2(self):
+
+        # test board with diagonal line of 3 for player 2
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0]
+        ])
+        self.assertEqual(self.ai.evaluate_position(board, 2), 10)
+
 
     def test_get_valid_locations(self):
+
         # test initial board
         self.assertEqual(self.ai.get_valid_locations(self.board.board), list(range(COLUMN_COUNT)))
         # test full column
@@ -82,7 +154,31 @@ class TestAIEngine(unittest.TestCase):
         best_move, score = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)
         self.assertLess(score, INFINITY)
 
-    def test_find_win_in_6(self):
+    def test_find_win_in_5(self):
+
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 2, 2, 0, 0],
+            [0, 0, 1, 2, 1, 0, 0],
+            [0, 0, 2, 2, 1, 1, 0]
+        ])
+
+        # Winning move is found with depth 4 and score = infinity
+
+        depth = 5
+        best_move, score = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)
+        self.assertEqual(best_move, 2)
+        self.assertEqual(score, INFINITY)
+
+        # Winning move is not found with depth 4, score < infinity
+
+        depth = 4
+        best_move, score = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)
+        self.assertLess(score, INFINITY)
+
+    def test_find_win_in_7(self):
 
         board = np.array([
             [1, 0, 0, 1, 1, 0, 0],
@@ -126,49 +222,45 @@ class TestAIEngine(unittest.TestCase):
 
         # Test defense against imminent vertical loss
 
-        self.board.board = np.array([
-            [1, 0, 0, 0, 0, 0, 0],
-            [1, 0, 0, 0, 0, 0, 0],
-            [1, 0, 0, 0, 0, 0, 0],
+        board = np.array([
             [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0]
-        ])
+            [0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0]
+            ])
 
-        col, score = self.ai.minimax(self.board.board, depth, True, -INFINITY, INFINITY)
-        row = self.board.get_next_open_row(col)
+        col = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)[0]
         self.assertEqual(col, 0)
 
         # Test defense against imminent right diagonal loss
 
-        self.board.board = np.array([
-            [0, 0, 1, 1, 2, 1, 0],
-            [0, 0, 2, 2, 1, 0, 0],
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 2, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0]
+            [0, 0, 2, 2, 1, 0, 0],
+            [0, 0, 1, 1, 2, 1, 0]
         ])
 
-        col, score = self.ai.minimax(self.board.board, depth, True, -INFINITY, INFINITY)
-        row = self.board.get_next_open_row(col)
+        col = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)[0]
         self.assertEqual(col, 2)
 
         # Test defense against imminent left diagonal loss
 
-        self.board.board = np.array([
-            [1, 2, 1, 1, 2, 1, 0],
-            [0, 1, 2, 2, 1, 0, 0],
+        board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
             [0, 0, 1, 2, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0]
+            [0, 1, 2, 2, 1, 0, 0],
+            [1, 2, 1, 1, 2, 1, 0]
         ])
 
-        col, score = self.ai.minimax(self.board.board, depth, True, -INFINITY, INFINITY)
-        row = self.board.get_next_open_row(col)
+        col = self.ai.minimax(np.flip(board, 0), depth, True, -INFINITY, INFINITY)[0]
         self.assertEqual(col, 3)
-
 
     def test_minimax(self):
         # test initial board

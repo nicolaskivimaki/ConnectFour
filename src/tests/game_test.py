@@ -52,6 +52,17 @@ class TestGame(unittest.TestCase):
 
         self.assertFalse(self.game.is_valid_location(1))
 
+        self.game.board.board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0]
+        ])
+
+        self.assertTrue(self.game.board.is_valid_location(1))
+
     def test_get_next_open_row(self):
 
         self.game.board.reset_board()
@@ -64,6 +75,87 @@ class TestGame(unittest.TestCase):
         self.game.board.drop_piece(0, 1, 1)
         self.game.board.drop_piece(1, 1, 1)
         self.assertEqual(self.game.get_next_open_row(1), 2)
+
+        # Test when column is full
+        self.game.board.board = np.array([
+            [1, 0, 0, 0, 0, 0, 0],
+            [2, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [2, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0],
+            [2, 0, 0, 0, 0, 0, 0]
+        ])
+
+        self.assertEqual(self.game.board.get_next_open_row(0), None)
+
+    def test_win(self):
+
+        # Test horizontal win for player 1
+        self.game.board.board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 1, 1, 0]
+        ])
+        self.assertTrue(self.game.board.check_win(1))
+
+        # Test horizontal win for player 2
+        self.game.board.board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 2, 2, 2, 0]
+        ])
+        self.assertTrue(self.game.board.check_win(2))
+
+        # Test vertical win for player 1
+        self.game.board.board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0]
+        ])
+        self.assertTrue(self.game.board.check_win(1))
+
+        # Test vertical win for player 2
+        self.game.board.board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0]
+        ])
+        self.assertTrue(self.game.board.check_win(2))
+
+        # Test diagonal win for player 1
+        self.game.board.board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0]
+        ])
+        self.assertTrue(self.game.board.check_win(1))
+
+        # Test diagonal win for player 2
+        self.game.board.board = np.array([
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 0, 2, 0, 0, 0],
+            [0, 0, 0, 0, 2, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0]
+        ])
+        self.assertTrue(self.game.board.check_win(2))
+
 
 
 if __name__ == "__main__":
