@@ -1,4 +1,5 @@
 import math
+
 ROW_COUNT = 6
 COLUMN_COUNT = 7
 BLUE = (0,0,255)
