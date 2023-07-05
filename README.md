@@ -17,3 +17,4 @@ Project for University of Helsinki's Datastructures and Algorithms Lab course
 - [week 4](https://github.com/nicolaskivimaki/tiralabra-K23/tree/main/documentation/weekly_reports/week4.md)
 - [week 5](https://github.com/nicolaskivimaki/tiralabra-K23/blob/main/documentation/weekly_reports/week5.md)
 - [week 6](https://github.com/nicolaskivimaki/tiralabra-K23/blob/main/documentation/weekly_reports/week6.md)
+- [Final Release](https://github.com/nicolaskivimaki/tiralabra_K23/releases/tag/tiralabra)
